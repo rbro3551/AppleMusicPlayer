@@ -58,7 +58,6 @@ struct ExpandableMusicPlayer: View {
                     let translation = max(value.translation.height, 0)
                     offsetY = translation
                     windowProgress = max(min(translation / size.height, 1), 0) * 0.1
-                    print(value.translation.height)
                     resizeWindow(0.1 - windowProgress)
                 } onEnd: { value in
                     guard expandPlayer else { return }
@@ -86,16 +85,6 @@ struct ExpandableMusicPlayer: View {
                 }
                 
             )
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-                // resetting window when the app exits the active state to avoid buggy behavior
-                resizeWindow(0)
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                // resetting window when the app exits the active state to avoid buggy behavior
-                resizeWindow(0)
-            }
-
-            
             .ignoresSafeArea()
             
         }
